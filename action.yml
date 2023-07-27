@@ -1,13 +1,28 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'conventional-version-check'
+description: 'read version content as conventional version'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  sha-length:  # id of input
+    description: 'length of short-sha to return'
     required: true
-    default: '1000'
+    default: '8'
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  sha: # output will be available to future steps
+    description: 'commit of git full sha'
+  short-sha:
+    description: 'commit of git full sha short'
+  tag-version:
+    description: 'tag name when CI in refs/tags'
+  cc-latest-version:
+    description: 'version of latest conventional changelog'
+  cc-latest-changes-log:
+    description: 'content of latest conventional changelog'
+  cc-latest-status:
+    description: 'status of latest'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
+
+branding:
+  color: blue
+  icon: tag

@@ -1,18 +1,32 @@
-# Create a JavaScript Action
+[![GitHub license](https://img.shields.io/github/license/convention-change/conventional-version-check)](https://github.com/convention-change/conventional-version-check)
+[![GitHub latest SemVer tag)](https://img.shields.io/github/v/tag/convention-change/conventional-version-check)](https://github.com/convention-change/conventional-version-check/tags)
+[![GitHub release)](https://img.shields.io/github/v/release/convention-change/conventional-version-check)](https://github.com/convention-change/conventional-version-check/releases)
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+## Usage
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+You can now consume the action by referencing the v1 branch
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+```yaml
+uses: actions/javascript-action@v1
+with:
+  milliseconds: 1000
+```
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
 
-## Create an action from this template
+# dev
 
-Click the `Use this Template` and provide the new repo details for your action
+## Contributing
+
+[![Contributor Covenant](https://img.shields.io/badge/contributor%20covenant-v1.4-ff69b4.svg)](.github/CONTRIBUTING_DOC/CODE_OF_CONDUCT.md)
+[![GitHub contributors](https://img.shields.io/github/contributors/convention-change/conventional-version-check)](https://github.com/convention-change/conventional-version-check/graphs/contributors)
+
+We welcome community contributions to this project.
+
+Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for more information on how to get started.
+
+请阅读有关 [贡献者指南](.github/CONTRIBUTING_DOC/zh-CN/CONTRIBUTING.md) 以获取更多如何入门的信息
+
 
 ## Code in Main
 
@@ -102,15 +116,3 @@ Note: We recommend using the `--license` option for ncc, which will create a lic
 Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
