@@ -3,8 +3,20 @@ description: 'read version content as conventional version'
 inputs:
   sha-length:  # id of input
     description: 'length of short-sha to return'
-    required: true
+    required: false
     default: '8'
+  sha-short-variable-env:  # id of input
+    description: 'short-sha env'
+    required: false
+    default: 'SHA-SHORT'
+  tag-regex:
+    description: 'Regex to capture a group text as tag name. Full tag string is returned if regex is not defined.'
+    required: false
+    default: ''
+  tag-rege-group:
+    description: 'Regex group number to return as tag name.'
+    required: false
+    default: '1'
 outputs:
   sha: # output will be available to future steps
     description: 'commit of git full sha'
