@@ -9,10 +9,12 @@ test('test runs', () => {
     console.log(`GITHUB_ACTIONS is ${process.env.GITHUB_ACTIONS} and pass test`);
     return;
   }
-
   process.env['INPUT_SHA-LENGTH'] = '8';
   process.env['INPUT_TAG-REGEX-GROUP'] = '1';
   process.env['INPUT_TAG-REGEX'] = '';
+  process.env['INPUT_SHA-SHORT-VARIABLE-ENV'] = 'SHA-SHORT';
+  process.env['INPUT_TAG-VERSION-ENV'] = 'GIT_TAG_VERSION';
+
   const ip = path.join(__dirname, 'index.js');
   const result = cp.execSync(`node ${ip}`, {env: process.env}).toString();
   console.log(result);

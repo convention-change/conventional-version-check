@@ -13,10 +13,21 @@ inputs:
     description: 'Regex to capture a group text as tag name. Full tag string is returned if regex is not defined.'
     required: false
     default: ''
-  tag-rege-group:
+  tag-regex-group:
     description: 'Regex group number to return as tag name.'
     required: false
     default: '1'
+  tag-version-env:  # id of input
+    description: 'short-sha env'
+    required: false
+    default: 'GIT_TAG_VERSION'
+  cc-log-path:
+    description: "Path to the CHANGELOG file containing the log entries by conventional commits"
+    required: false
+    default: "./CHANGELOG.md"
+  cc-version-wanted:
+    description: "Version of the log entry wanted"
+    required: false
 outputs:
   sha: # output will be available to future steps
     description: 'commit of git full sha'
@@ -26,10 +37,12 @@ outputs:
     description: 'tag name when CI in refs/tags'
   cc-latest-version:
     description: 'version of latest conventional changelog'
-  cc-latest-changes-log:
-    description: 'content of latest conventional changelog'
+  cc-latest-date:
+    description: 'date of latest conventional changelog'
   cc-latest-status:
     description: 'status of latest'
+  cc-latest-changes-log:
+    description: 'content of latest conventional changelog'
 
 runs:
   using: 'node16'
