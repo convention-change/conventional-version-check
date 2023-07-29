@@ -28,3 +28,8 @@ jobs:
       run: |
         echo "sha: ${{ steps.check-version.outputs.sha }}"
         echo "short-sha: ${{ steps.check-version.outputs.short-sha }}"
+        echo "tag-version: ${{ steps.check-version.outputs.tag-version }}"
+        echo "cc-latest-version: ${{ steps.check-version.outputs.cc-latest-version }}"
+        echo "cc-latest-date: ${{ steps.check-version.outputs.cc-latest-date }}"
+        echo "cc-latest-status: ${{ steps.check-version.outputs.cc-latest-status }}"
+        echo "cc-latest-changes-log: ${{ steps.check-version.outputs.cc-latest-changes-log }}"
