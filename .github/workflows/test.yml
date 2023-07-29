@@ -27,8 +27,10 @@ jobs:
     - name: check test out
       run: |
         echo "sha: ${{ steps.check-version.outputs.sha }}"
+        echo "env SHA-SHORT: ${{ env.SHA-SHORT }}"
         echo "short-sha: ${{ steps.check-version.outputs.short-sha }}"
         echo "tag-version: ${{ steps.check-version.outputs.tag-version }}"
+        echo "env GIT_TAG_VERSION: ${{ env.GIT_TAG_VERSION }}"
         echo "cc-latest-version: ${{ steps.check-version.outputs.cc-latest-version }}"
         echo "cc-latest-date: ${{ steps.check-version.outputs.cc-latest-date }}"
         echo "cc-latest-status: ${{ steps.check-version.outputs.cc-latest-status }}"
