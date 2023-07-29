@@ -1,0 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 1.0.0 (2023-07-29)
+
+
+### 👷‍ Build System
+
+* **deps-dev:** bump jest from 29.6.1 to 29.6.2 ([99fb843](https://github.com/actions/javascript-action/commit/99fb8432b5d1f22ba683d4aa85b487e5befc58f0))
+
+
+### ✨ Features
+
+* change to sha-kit and add cc-kit ([e521b10](https://github.com/actions/javascript-action/commit/e521b10631881a3d9d177503e1248220b34fb4c2))
+* update action.yml settings ([87f0e1c](https://github.com/actions/javascript-action/commit/87f0e1c50701a96c97b66eb62f69cc4be413bd8a))
