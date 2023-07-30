@@ -1,10 +1,7 @@
 .PHONY: test check clean build dist all
 
 # each tag change this
-ENV_DIST_VERSION := 1.7.2
-
-# change base namespace
-ENV_PROJECT_NAME=bridgewwater-cli
+ENV_DIST_VERSION := 1.1.0
 
 ENV_ROOT ?= $(shell pwd)
 ENV_DIST_PATH ?= ./dist
@@ -24,7 +21,6 @@ utils:
 versionHelp:
 	@git fetch --tags
 	@echo "project base info"
-	@echo " project name         : ${ENV_PROJECT_NAME}"
 	@echo " module folder path   : ${ENV_MODULE_FOLDER}"
 	@echo ""
 	@echo "=> please check to change version, now is [ ${ENV_DIST_VERSION} ]"
@@ -115,7 +111,6 @@ help:
 	@echo "$$ make versionHelp         ~> print version when make tageBefore will print again"
 	@echo "$$ make tagBefore           ~> generate CHANGELOG.md and copy to module folder"
 	@echo ""
-	@echo " project name         : ${ENV_PROJECT_NAME}"
 	@echo " module folder path   : ${ENV_MODULE_FOLDER}"
 	@echo ""
 	@echo "Warning: must install node and install module as"
@@ -124,6 +119,7 @@ help:
 	@echo "$$ make upgradeAll          ~> upgrade node_module and reinstall"
 	@echo "$$ make installAll          ~> install all include global utils and node_module"
 	@echo "$$ make lint                ~> run eslint"
+	@echo "$$ make ci                  ~> run ci"
 	@echo " unit test as"
 	@echo "$$ make test                ~> only run unit test as change"
 	@echo "$$ make testAll             ~> run full unit test"
