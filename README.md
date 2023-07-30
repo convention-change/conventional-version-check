@@ -89,8 +89,8 @@ jobs:
       tag_name: ${{ steps.check-version.outputs.tag-version }}
       cc_version: ${{ steps.check-version.outputs.cc-latest-version }}
       cc_date: ${{ steps.check-version.outputs.cc-latest-date }}
-      cc_changes: ${{ steps.check-version.outputs.cc-latest-status }}
-      cc_status: ${{ steps.check-version.outputs.cc-latest-changes-log }}
+      cc_changes: ${{ steps.check-version.outputs.cc-latest-changes-log }}
+      cc_status: ${{ steps.check-version.outputs.cc-latest-status }}
 
     steps:
       - name: Checkout
@@ -98,7 +98,7 @@ jobs:
 
       - name: get version and conventional
         id: check-version
-        uses: convention-change/conventional-version-check@v1 # or change to latest version
+        uses: convention-change/conventional-version-check@v1.1.0 # or change to latest version
         with:
           sha-length: 8
 
