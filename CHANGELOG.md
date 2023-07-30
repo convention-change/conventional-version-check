@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/actions/javascript-action/compare/v1.1.0...v1.2.0) (2023-07-30)
+
+
+### ✨ Features
+
+* update use of doc ([601d192](https://github.com/actions/javascript-action/commit/601d19293eb93c949ba6c506f8980c3acc3c65bb))
+
 ## [1.1.0](https://github.com/actions/javascript-action/compare/v1.0.0...v1.1.0) (2023-07-30)
 
 
