@@ -65,6 +65,9 @@ installGlobal:
 install:
 	npm install
 
+installCi:
+	npm ci
+
 upgradeAll:
 	ncu -u
 	npm ci
@@ -86,7 +89,7 @@ test:
 	npm run test
 
 ci: export GITHUB_ACTIONS=true
-ci: lint test prepare
+ci: installCi lint test prepare
 
 testCoverage:
 	jest --collectCoverage
