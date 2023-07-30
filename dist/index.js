@@ -11666,9 +11666,8 @@ const tag_kit = __nccwpck_require__(1671)
 async function run() {
   try {
     sha_kit();
-    await cc_kit.cc_kit()
+    await cc_kit.cc_kit();
     tag_kit();
-
   } catch (error) {
     console.error(error.stack);
     core.setFailed(error.message);

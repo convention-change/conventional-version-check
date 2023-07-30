@@ -8,9 +8,8 @@ const tag_kit = require('./src/tag-kit')
 async function run() {
   try {
     sha_kit();
-    await cc_kit.cc_kit()
+    await cc_kit.cc_kit();
     tag_kit();
-
   } catch (error) {
     console.error(error.stack);
     core.setFailed(error.message);
