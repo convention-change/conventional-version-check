@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/actions/javascript-action/compare/v1.0.0...v1.1.0) (2023-07-30)
+
+
+### ♻ Refactor
+
+* change to tag-kit and add check of `cc-log-path` ([117afe3](https://github.com/actions/javascript-action/commit/117afe3abd130968ba03d55f7e89d294d2de47b8))
+
 ## 1.0.0 (2023-07-29)
 
 
