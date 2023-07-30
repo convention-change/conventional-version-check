@@ -2,11 +2,12 @@ const utils = require("util");
 const fs = require("fs");
 const core = require("@actions/core");
 
-const { parseEntry } = require("./conventional/parse-entry");
-const { getEntries } = require("./conventional/get-entries");
-const { getVersionById } = require("./conventional/get-version-by-id");
+const {parseEntry} = require("./conventional/parse-entry");
+const {getEntries} = require("./conventional/get-entries");
+const {getVersionById} = require("./conventional/get-version-by-id");
 
 const readFile = utils.promisify(fs.readFile);
+const exists = utils.promisify(fs.exists);
 
 exports.cc_kit = async function cc_kit() {
   const changelogPath = core.getInput("cc-log-path") || "./CHANGELOG.md";
@@ -19,6 +20,11 @@ exports.cc_kit = async function cc_kit() {
   }
 
   core.startGroup("Parse data");
+  if (await exists(changelogPath) === false) {
+    core.warning(`No changelog file found at: ${changelogPath}`);
+    return
+  }
+
   const rawData = await readFile(changelogPath);
   const versions = getEntries(rawData).map(parseEntry);
   core.debug(`${versions.length} version logs found`);
