@@ -11,9 +11,13 @@ updates:
       interval: "monthly"
       day: "sunday"
     open-pull-requests-limit: 10
-  - package-ecosystem: npm
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
       day: "sunday"
     open-pull-requests-limit: 10
+    ignore:
+    - dependency-name: 'chalk'
+#      versions:
+#      - ">= 2.a, < 3"
