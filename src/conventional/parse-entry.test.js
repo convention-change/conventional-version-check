@@ -1,4 +1,4 @@
-const {parseEntry} = require("./parse-entry");
+const { parseEntry } = require('./parse-entry');
 
 const entryDescription = `
 ### Features
@@ -21,64 +21,64 @@ const entryDescription = `
 
 * forcing a breaking semver change based on https://github.com/conventional-changelog/conventional-changelog/pull/385`;
 
-test("get readable data from text entry", () => {
+test('get readable data from text entry', () => {
   const input = `
     ### [3.0.0](https://github.com/conventional-changelog/conventional-changelog/compare/conventional-changelog@2.0.3...conventional-changelog@3.0.0) (2018-11-01)
     ${entryDescription}
   `;
   const output = parseEntry(input);
 
-  expect(output.id).toEqual("3.0.0");
-  expect(output.date).toEqual("2018-11-01");
-  expect(output.status).toEqual("released");
+  expect(output.id).toEqual('3.0.0');
+  expect(output.date).toEqual('2018-11-01');
+  expect(output.status).toEqual('released');
   expect(output.text).toContain(`### Features`);
   expect(output.text).toContain(
     `force breaking change ([f6d506d](https://github.com/conventional-changelog/conventional-changelog/commit/f6d506d))`
   );
 });
 
-test("get readable data from text entry with heading level 2", () => {
+test('get readable data from text entry with heading level 2', () => {
   const input = `
     ## [3.0.0](https://github.com/conventional-changelog/conventional-changelog/compare/conventional-changelog@2.0.3...conventional-changelog@3.0.0) (2018-11-01)
     ${entryDescription}
   `;
   const output = parseEntry(input);
 
-  expect(output.id).toEqual("3.0.0");
-  expect(output.date).toEqual("2018-11-01");
-  expect(output.status).toEqual("released");
+  expect(output.id).toEqual('3.0.0');
+  expect(output.date).toEqual('2018-11-01');
+  expect(output.status).toEqual('released');
   expect(output.text).toContain(`### Features`);
   expect(output.text).toContain(
     `force breaking change ([f6d506d](https://github.com/conventional-changelog/conventional-changelog/commit/f6d506d))`
   );
 });
 
-test("get readable data from text entry with prereleased version", () => {
+test('get readable data from text entry with prereleased version', () => {
   const input = `
     ## [3.0.0-0](https://github.com/conventional-changelog/conventional-changelog/compare/conventional-changelog@2.0.3...conventional-changelog@3.0.0) (2018-11-01)
     ${entryDescription}
   `;
   const output = parseEntry(input);
 
-  expect(output.id).toEqual("3.0.0-0");
-  expect(output.date).toEqual("2018-11-01");
-  expect(output.status).toEqual("prereleased");
+  expect(output.id).toEqual('3.0.0-0');
+  expect(output.date).toEqual('2018-11-01');
+  expect(output.status).toEqual('prereleased');
   expect(output.text).toContain(`### Features`);
   expect(output.text).toContain(
     `force breaking change ([f6d506d](https://github.com/conventional-changelog/conventional-changelog/commit/f6d506d))`
   );
 });
 
-test("get readable data from text entry without compare url", () => {
+test('get readable data from text entry without compare url', () => {
   const input = `
     ## 3.0.0 (2018-11-01)
     ${entryDescription}
   `;
   const output = parseEntry(input);
 
-  expect(output.id).toEqual("3.0.0");
-  expect(output.date).toEqual("2018-11-01");
-  expect(output.status).toEqual("released");
+  expect(output.id).toEqual('3.0.0');
+  expect(output.date).toEqual('2018-11-01');
+  expect(output.status).toEqual('released');
   expect(output.text).toContain(`### Features`);
   expect(output.text).toContain(
     `force breaking change ([f6d506d](https://github.com/conventional-changelog/conventional-changelog/commit/f6d506d))`

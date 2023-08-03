@@ -1942,6 +1942,10 @@ function checkBypass(reqUrl) {
     if (!reqUrl.hostname) {
         return false;
     }
+    const reqHost = reqUrl.hostname;
+    if (isLoopbackAddress(reqHost)) {
+        return true;
+    }
     const noProxy = process.env['no_proxy'] || process.env['NO_PROXY'] || '';
     if (!noProxy) {
         return false;
@@ -1967,13 +1971,24 @@ function checkBypass(reqUrl) {
         .split(',')
         .map(x => x.trim().toUpperCase())
         .filter(x => x)) {
-        if (upperReqHosts.some(x => x === upperNoProxyItem)) {
+        if (upperNoProxyItem === '*' ||
+            upperReqHosts.some(x => x === upperNoProxyItem ||
+                x.endsWith(`.${upperNoProxyItem}`) ||
+                (upperNoProxyItem.startsWith('.') &&
+                    x.endsWith(`${upperNoProxyItem}`)))) {
             return true;
         }
     }
     return false;
 }
 exports.checkBypass = checkBypass;
+function isLoopbackAddress(host) {
+    const hostLower = host.toLowerCase();
+    return (hostLower === 'localhost' ||
+        hostLower.startsWith('127.') ||
+        hostLower.startsWith('[::1]') ||
+        hostLower.startsWith('[0:0:0:0:0:0:0:1]'));
+}
 //# sourceMappingURL=proxy.js.map
 
 /***/ }),
@@ -12873,27 +12888,25 @@ const utils = __nccwpck_require__(3837);
 const fs = __nccwpck_require__(7147);
 const core = __nccwpck_require__(2186);
 
-const {parseEntry} = __nccwpck_require__(9070);
-const {getEntries} = __nccwpck_require__(4556);
-const {getVersionById} = __nccwpck_require__(2752);
+const { parseEntry } = __nccwpck_require__(9070);
+const { getEntries } = __nccwpck_require__(4556);
+const { getVersionById } = __nccwpck_require__(2752);
 
 const readFile = utils.promisify(fs.readFile);
 const exists = utils.promisify(fs.exists);
 
 exports.cc_kit = async function cc_kit() {
-  const changelogPath = core.getInput("cc-log-path") || "./CHANGELOG.md";
-  const targetVersion = core.getInput("cc-version-wanted") || null;
+  const changelogPath = core.getInput('cc-log-path') || './CHANGELOG.md';
+  const targetVersion = core.getInput('cc-version-wanted') || null;
 
   if (targetVersion == null) {
-    core.warning(
-      `No target version specified. Will try to return the most recent one in the changelog file.`
-    );
+    core.warning(`No target version specified. Will try to return the most recent one in the changelog file.`);
   }
 
-  core.startGroup("Parse data");
-  if (await exists(changelogPath) === false) {
+  core.startGroup('Parse data');
+  if ((await exists(changelogPath)) === false) {
     core.warning(`No changelog file found at: ${changelogPath}`);
-    return
+    return;
   }
 
   const rawData = await readFile(changelogPath);
@@ -12904,17 +12917,13 @@ exports.cc_kit = async function cc_kit() {
   const version = getVersionById(versions, targetVersion);
 
   if (version == null) {
-    throw new Error(
-      `No log entry found${
-        targetVersion != null ? ` for version ${targetVersion}` : ""
-      }`
-    );
+    throw new Error(`No log entry found${targetVersion != null ? ` for version ${targetVersion}` : ''}`);
   }
 
-  core.setOutput("cc-latest-version", version.id);
-  core.setOutput("cc-latest-date", version.date);
-  core.setOutput("cc-latest-status", version.status);
-  core.setOutput("cc-latest-changes-log", version.text);
+  core.setOutput('cc-latest-version', version.id);
+  core.setOutput('cc-latest-date', version.date);
+  core.setOutput('cc-latest-status', version.status);
+  core.setOutput('cc-latest-changes-log', version.text);
 };
 
 
@@ -12924,24 +12933,17 @@ exports.cc_kit = async function cc_kit() {
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186);
-const {semver, date} = __nccwpck_require__(7611);
+const { semver, date } = __nccwpck_require__(7611);
 
-const headerRegex = new RegExp(
-  `###?( | \\[)(${semver.source})( |\\]\\(.+\\) )\\(${date.source}\\)`,
-  "g"
-);
+const headerRegex = new RegExp(`###?( | \\[)(${semver.source})( |\\]\\(.+\\) )\\(${date.source}\\)`, 'g');
 
 exports.getEntries = (rawData) => {
   const content = String(rawData);
 
   core.debug(`CHANGELOG content: ${content}`);
 
-  const headerIndexes = [...content.matchAll(headerRegex)].map(
-    (match) => match.index
-  );
-  const versions = headerIndexes.map((e, i) =>
-    content.slice(e, headerIndexes[i + 1])
-  );
+  const headerIndexes = [...content.matchAll(headerRegex)].map((match) => match.index);
+  const versions = headerIndexes.map((e, i) => content.slice(e, headerIndexes[i + 1]));
 
   return versions;
 };
@@ -12973,11 +12975,11 @@ exports.getVersionById = (versions, id) => {
 /***/ 9070:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
-const {prerelease} = __nccwpck_require__(1383);
-const {semver, date} = __nccwpck_require__(7611);
+const { prerelease } = __nccwpck_require__(1383);
+const { semver, date } = __nccwpck_require__(7611);
 
 exports.parseEntry = (entry) => {
-  const [title, ...other] = entry.trim().split("\n");
+  const [title, ...other] = entry.trim().split('\n');
 
   const [versionNumber] = title.match(semver);
   const [versionDate] = title.match(date) || [];
@@ -12986,16 +12988,16 @@ exports.parseEntry = (entry) => {
     id: versionNumber,
     date: versionDate,
     status: computeStatus(versionNumber),
-    text: other.join("\n").trim(),
+    text: other.join('\n').trim()
   };
 };
 
 function computeStatus(version) {
   if (prerelease(version)) {
-    return "prereleased";
+    return 'prereleased';
   }
 
-  return "released";
+  return 'released';
 }
 
 
@@ -13020,17 +13022,18 @@ const github = __nccwpck_require__(5438);
 const shorten = __nccwpck_require__(2090);
 
 const sha_kit = function () {
-  const shaLength = Number(core.getInput('sha-length'))
+  const shaLength = Number(core.getInput('sha-length'));
   core.debug(`shaLength: ${shaLength}`);
   const sha = github.context.sha;
   const shortSha = shorten(sha, shaLength);
-  core.debug(`Output: ${shortSha}`)
-  core.setOutput('short-sha', shortSha)
-  core.exportVariable(core.getInput('sha-short-variable-env'), shortSha)
-  core.setOutput('sha', sha)
-}
+  core.debug(`Output: ${shortSha}`);
+  core.setOutput('short-sha', shortSha);
+  core.exportVariable(core.getInput('sha-short-variable-env'), shortSha);
+  core.setOutput('sha', sha);
+};
 
-module.exports = sha_kit
+module.exports = sha_kit;
+
 
 /***/ }),
 
@@ -13045,12 +13048,13 @@ const shorten = function (sha, length) {
     throw new Error('length is invalid');
   }
   if (sha.length < length) {
-    throw new Error('input is too short')
+    throw new Error('input is too short');
   }
-  return sha.substring(0, length)
-}
+  return sha.substring(0, length);
+};
 
 module.exports = shorten;
+
 
 /***/ }),
 
@@ -13061,22 +13065,20 @@ const github = __nccwpck_require__(5438);
 const core = __nccwpck_require__(2186);
 
 const tag_kit = function () {
-  const ref = github.context.ref
-  const tagPath = 'refs/tags/'
+  const ref = github.context.ref;
+  const tagPath = 'refs/tags/';
   if (ref && ref.startsWith(tagPath)) {
-    let tag = ref.substring(tagPath.length, ref.length)
-    const regexStr = core.getInput('tag-regex')
+    let tag = ref.substring(tagPath.length, ref.length);
+    const regexStr = core.getInput('tag-regex');
     if (regexStr) {
-      const regex = new RegExp(regexStr)
-      const groupIdx = parseInt(core.getInput('tag-regex-group') || '1')
-      const result = regex.exec(tag)
+      const regex = new RegExp(regexStr);
+      const groupIdx = parseInt(core.getInput('tag-regex-group') || '1');
+      const result = regex.exec(tag);
       if (result && result.length > groupIdx) {
-        tag = result[groupIdx]
+        tag = result[groupIdx];
       } else {
-        core.warning(
-          `Failed to match regex '${regexStr}' in tag string '${tag}'. Result is '${result}'`
-        );
-        return
+        core.warning(`Failed to match regex '${regexStr}' in tag string '${tag}'. Result is '${result}'`);
+        return;
       }
 
       // Return named groups on output
@@ -13089,9 +13091,10 @@ const tag_kit = function () {
     core.exportVariable('GIT_TAG_NAME', tag);
     core.setOutput('tag-version', tag);
   }
-}
+};
 
 module.exports = tag_kit;
+
 
 /***/ }),
 
@@ -13274,9 +13277,8 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 const sha_kit = __nccwpck_require__(8431);
-const cc_kit = __nccwpck_require__(8835)
-const tag_kit = __nccwpck_require__(1671)
-
+const cc_kit = __nccwpck_require__(8835);
+const tag_kit = __nccwpck_require__(1671);
 
 // most @actions toolkit packages have async methods
 async function run() {

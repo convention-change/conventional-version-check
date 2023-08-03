@@ -2,7 +2,6 @@ const process = require('process');
 const cp = require('child_process');
 const path = require('path');
 
-
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs', () => {
   if (process.env.GITHUB_ACTIONS) {
@@ -16,6 +15,6 @@ test('test runs', () => {
   process.env['INPUT_TAG-VERSION-ENV'] = 'GIT_TAG_VERSION';
 
   const ip = path.join(__dirname, 'index.js');
-  const result = cp.execSync(`node ${ip}`, {env: process.env}).toString();
+  const result = cp.execSync(`node ${ip}`, { env: process.env }).toString();
   console.log(result);
-})
+});

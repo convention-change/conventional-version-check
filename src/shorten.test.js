@@ -5,4 +5,4 @@ test('shorten', () => {
   const length = 8;
   let shortSha = shorten(sha, length);
   expect(shortSha).toBe('5fe8d4ba');
-})
+});

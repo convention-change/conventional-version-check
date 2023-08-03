@@ -1,4 +1,4 @@
-const { getEntries } = require("./get-entries");
+const { getEntries } = require('./get-entries');
 
 const DATA = `
 # Changelog
@@ -40,7 +40,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 `;
 
-test("cc entries", () => {
+test('cc entries', () => {
   const output = getEntries(DATA);
 
   console.log(output);
