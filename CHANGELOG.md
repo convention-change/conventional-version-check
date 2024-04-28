@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.4.0](https://github.com/convention-change/conventional-version-check/compare/1.3.0...v1.4.0) (2024-04-28)
+
+### ✨ Features
+
+* update `action.yml` config use node20 ([aae6c045](https://github.com/convention-change/conventional-version-check/commit/aae6c04523698b962db698b86ac03e6416b4e970)), feat [#37](https://github.com/convention-change/conventional-version-check/issues/37)
+
 ## [1.3.0](https://github.com/convention-change/conventional-version-check/compare/1.2.0...v1.3.0) (2024-04-28)
 
 ### ✨ Features
