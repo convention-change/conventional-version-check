@@ -9,8 +9,8 @@ ENV_MODULE_FOLDER ?= ${ENV_ROOT}
 ENV_MODULE_MAKE_FILE ?= ${ENV_MODULE_FOLDER}/Makefile
 ENV_MODULE_MANIFEST = ${ENV_MODULE_FOLDER}/package.json
 ENV_MODULE_CHANGELOG = ${ENV_MODULE_FOLDER}/CHANGELOG.md
-ENV_COVERAGE_OUT_FOLDER = ${ENV_ROOT}/coverage/
-ENV_NODE_MODULES_FOLDER = ${ENV_ROOT}/node_modules/
+ENV_COVERAGE_OUT_FOLDER = ${ENV_ROOT}/coverage
+ENV_NODE_MODULES_FOLDER = ${ENV_ROOT}/node_modules
 ENV_NODE_MODULES_LOCK_FILE = ${ENV_ROOT}/package-lock.json
 
 utils:
@@ -56,20 +56,23 @@ cleanAll: cleanCoverageOut cleanNpmCache
 	@echo "=> clean all finish"
 
 installGlobal:
-	npm install rimraf eslint jest codecov --global
-
-install:
-	npm install
+	npm install rimraf codecov --global
 
 installCi:
 	npm ci
 
-upgradeAll:
-	ncu -u
-	npm ci
+install:
+	npm install
 
-installAll: utils installGlobal install
-	@echo "=> install all finish"
+dep: cleanNpmCache install
+	$(info ~> dep finish)
+
+upgradeCheck:
+	npx npm-check-updates
+
+upgradeAll:
+	npx npm-check-updates -u
+	npm install
 
 format:
 	npm run format
@@ -84,8 +87,14 @@ test: export GITHUB_ACTIONS=true
 test:
 	npm run test
 
+style:
+	npm run format
+
+buildIfPresent:
+	npm run build --if-present
+
 ci: export GITHUB_ACTIONS=true
-ci: installCi lint test prepare
+ci: installCi lint buildIfPresent test prepare
 
 testCoverage:
 	jest --collectCoverage
@@ -118,6 +127,7 @@ help:
 	@echo "$$ make install             ~> install project"
 	@echo "$$ make upgradeAll          ~> upgrade node_module and reinstall"
 	@echo "$$ make installAll          ~> install all include global utils and node_module"
+	@echo "$$ make dep                 ~> clean install and install all"
 	@echo "$$ make lint                ~> run eslint"
 	@echo "$$ make ci                  ~> run ci"
 	@echo " unit test as"

@@ -6,9 +6,9 @@ const shorten = function (sha, length) {
     throw new Error('length is invalid');
   }
   if (sha.length < length) {
-    throw new Error('input is too short')
+    throw new Error('input is too short');
   }
-  return sha.substring(0, length)
-}
+  return sha.substring(0, length);
+};
 
 module.exports = shorten;

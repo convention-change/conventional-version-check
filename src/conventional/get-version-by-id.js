@@ -1,4 +1,4 @@
-const { semver } = require("./regexps");
+const { semver } = require('./regexps');
 
 exports.getVersionById = (versions, id) => {
   if (id != null) {
