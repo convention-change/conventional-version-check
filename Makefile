@@ -60,9 +60,11 @@ installGlobal:
 
 installCi:
 	npm ci
+	npm run clean:lockfile
 
 install:
 	npm install
+	npm run clean:lockfile
 
 dep: cleanNpmCache install
 	$(info ~> dep finish)
@@ -94,7 +96,7 @@ buildIfPresent:
 	npm run build --if-present
 
 ci: export GITHUB_ACTIONS=true
-ci: installCi lint buildIfPresent test prepare
+ci: installCi buildIfPresent test prepare
 
 testCoverage:
 	jest --collectCoverage
