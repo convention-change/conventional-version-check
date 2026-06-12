@@ -5,13 +5,23 @@ on:
     branches:
       - main
       - 'releases/*'
+      - 'release-*'
+      - 'FE-*'
+      - '*-feature-*'
+      - 'BF-*'
+      - '*-bug-*'
+      - 'PU-*'
+      - 'DOC-*'
+      - '*-documentation-*'
+      - '*-hotfix-*'
+      - 'fix-*'
 
 jobs:
   # unit tests
   units:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - run: npm ci
     - run: npm test
 
@@ -19,7 +29,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: ./
       id: check-version
       with:
