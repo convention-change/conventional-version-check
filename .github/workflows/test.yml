@@ -5,6 +5,16 @@ on:
     branches:
       - main
       - 'releases/*'
+      - 'release-*'
+      - 'FE-*'
+      - '*-feature-*'
+      - 'BF-*'
+      - '*-bug-*'
+      - 'PU-*'
+      - 'DOC-*'
+      - '*-documentation-*'
+      - '*-hotfix-*'
+      - 'fix-*'
 
 jobs:
   # unit tests
