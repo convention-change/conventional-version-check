@@ -38,7 +38,7 @@
   "devDependencies": {
     "replace-lockfile-registry": "0.0.2",
     "@vercel/ncc": "^0.45.0",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.9",
     "eslint": "^10.9.1",
     "jest": "^30.5.0"
   }
